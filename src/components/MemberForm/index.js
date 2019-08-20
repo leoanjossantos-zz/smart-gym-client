@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { updateMember } from "../../state/actions/members";
+import { updateMember, addMember } from "../../state/actions/members";
 import { Form } from "antd";
 import MemberForm from "./MemberForm";
 import { withRouter } from "react-router-dom";
@@ -9,7 +9,7 @@ const antdFormDecorator = Form.create({
   name: "member",
   mapPropsToFields(props) {
     let result = {};
-    const fields = ["cpf", "name", "address", "identity", "planType"];
+    const fields = ["cpf", "name", "address", "identity", "paymentPlan"];
     fields.forEach(
       ele =>
         (result[ele] = Form.createFormField({
@@ -23,14 +23,20 @@ const antdFormDecorator = Form.create({
 const formMember = antdFormDecorator(routedMemberForm);
 
 const mapStateToProps = ({ app }) => {
+  if (app.ui.currentMemberId)
+    return {
+      editingFields: app.entities.members.find(
+        member => (member.id = app.ui.currentMemberId)
+      ),
+      mode: "editingMode"
+    };
   return {
-    editingFields: app.entities.members.find(
-      member => (member.id = app.ui.currentMemberId)
-    )
+    editingFields: {},
+    mode: "creatingMode"
   };
 };
 
 export default connect(
   mapStateToProps,
-  { updateMember }
+  { updateMember, addMember }
 )(formMember);

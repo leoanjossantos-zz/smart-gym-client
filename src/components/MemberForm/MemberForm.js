@@ -1,21 +1,25 @@
 import React, { Component } from "react";
 import { Form, Radio, Input, Button, Tabs } from "antd";
-import ActivitiesTab from "../ComponentTabs/ActivitiesTab";
-import ExamesTab from "../ComponentTabs/ExamesTab";
-import PaymentTab from "../ComponentTabs/PaymentTab";
-import VacationTab from "../ComponentTabs/VacantionTab";
 import MemberTabs from "../ComponentTabs/MemberTabs";
 
 const { TabPane } = Tabs;
 const { Item } = Form;
 
 class MemberForm extends Component {
+  saveOrUpdate = values => {
+    if (this.props.mode === "creatingMode") {
+      this.props.addMember(values);
+    } else {
+      this.props.updateMember(values);
+    }
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
-        this.props.updateMember(values);
+        this.saveOrUpdate(values);
         this.props.history.push("/");
       }
     });
@@ -43,12 +47,12 @@ class MemberForm extends Component {
           </Item>
         ))}
         <Item label="Tipo de Plano">
-          {getFieldDecorator("planType", {
+          {getFieldDecorator("paymentPlan", {
             rules: [{ required: true, message: "Campo obrigatório." }]
           })(
             <Radio.Group>
-              <Radio value="yearly">Anual</Radio>
-              <Radio value="monthly">Mensal</Radio>
+              <Radio value="YEARLY">Anual</Radio>
+              <Radio value="MONTHLY">Mensal</Radio>
             </Radio.Group>
           )}
         </Item>

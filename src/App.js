@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Members from "./screens/Members";
+import MembersList from "./screens/MembersList";
 import Member from "./screens/Member";
 import LateralMenu from "./components/LateralMenu";
 import "antd/dist/antd.css";
@@ -19,7 +19,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Layout style={{ minHeight: '100vh' }}>
+        <Layout style={{ minHeight: "100vh" }}>
           <LateralMenu />
           <Layout>
             <Header>
@@ -35,8 +35,9 @@ function App() {
                 minHeight: 280
               }}
             >
-              <Route path="/" component={Members} exact />
+              <Route path="/" component={MembersList} exact />
               <Route path="/Member/:id" component={Member} />
+              <Route path="/newMember" component={Member} />
             </Content>
             <Footer>footer</Footer>
           </Layout>
