@@ -46,6 +46,9 @@ export function rootReducer(state = initialState, action) {
       newState.entities.members = members;
 
       return newState;
+    case actionTypes.CLEAR_MEMBER_ID:
+      newState.ui.currentMemberId = null;
+      return newState;
     default:
       return state;
   }

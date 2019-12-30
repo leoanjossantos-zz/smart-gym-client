@@ -23,20 +23,18 @@ const antdFormDecorator = Form.create({
 const formMember = antdFormDecorator(routedMemberForm);
 
 const mapStateToProps = ({ app }) => {
-  if (app.ui.currentMemberId)
+  if (app.ui.currentMemberId) {
     return {
       editingFields: app.entities.members.find(
         member => (member.id = app.ui.currentMemberId)
       ),
       mode: "editingMode"
     };
+  }
   return {
     editingFields: {},
     mode: "creatingMode"
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { updateMember, addMember }
-)(formMember);
+export default connect(mapStateToProps, { updateMember, addMember }) (formMember);

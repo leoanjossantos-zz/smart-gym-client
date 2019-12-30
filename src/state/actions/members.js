@@ -11,13 +11,18 @@ const membersBaseURL = process.env.REACT_APP_BACKEND_URL + "/gymMembers";
 // }
 // {name: "Test", cpf: "0000000000000", identity: "te00000000", address: "Address asdf", planType: "monthly"}
 export function addMember(newMemberData) {
-  return dispatch => {
-    axios.post(membersBaseURL, newMemberData).then(response =>
-      dispatch({
-        type: actionTypes.NEW_MEMBER,
-        payload: newMemberData
-      })
-    );
+  return function(dispatch) {
+    axios.post(membersBaseURL, newMemberData).then(newMemberCallBack(newMemberData, dispatch));
+  };
+}
+
+function newMemberCallBack(newMemberData, dispatch) {
+  return function (response) {
+    let action = {
+      type: actionTypes.NEW_MEMBER,
+      payload: response
+    };
+    dispatch(action);
   };
 }
 

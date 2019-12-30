@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Form, Radio, Input, Button, Tabs } from "antd";
 import MemberTabs from "../ComponentTabs/MemberTabs";
 
-const { TabPane } = Tabs;
 const { Item } = Form;
 
 class MemberForm extends Component {

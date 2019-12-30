@@ -7,3 +7,6 @@ export function selectMemberId(id) {
   };
 }
 
+export function clearMemberId() {
+  return { type: actionTypes.CLEAR_MEMBER_ID };
+}
